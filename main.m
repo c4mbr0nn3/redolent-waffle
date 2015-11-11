@@ -104,6 +104,31 @@ lmat=prec;
 pvec=lsolve(nequ,nterm,ia,ja,lmat,vec);
 clear IA JA n nz SYSMAT prec
 
+% residual correction method
+prompt4='Numero iterazioni CRM: ';
+maxiter=input(prompt4);
+iter1=0;
+b=vec;
+x=pvec;
+while iter1<maxiter
+    for i=1:nequ
+        Ax(i)=0;
+    end
+    for i=1:nequ
+        k=ia(i);
+        Ax(i)=Ax(i)+sysmat(k)*x(i);
+        for k=ia(i)+1:ia(i+1)-1
+            j=ja(k);
+            Ax(i)=Ax(i)+sysmat(k)*x(j);
+            Ax(j)=Ax(j)+sysmat(k)*x(i);
+        end
+    end
+    vec=b-Ax;
+    pvec=lsolve(nequ,nterm,ia,ja,lmat,vec);
+    x=x+pvec;
+    iter1=iter1+1;
+end
+
 % ask if use CG or PCG
 choice=menu('Quale algoritmo vuoi usare?','CG','PCG');
 if choice==1
