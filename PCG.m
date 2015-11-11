@@ -1,7 +1,5 @@
 % Preconditioned Conjugate Gradient (PCG)
-function PCG(pvec, vec, sysmat, ia, ja, nequ, nterm, lmat)
-x=pvec;
-b=vec;
+function PCG(x, b, sysmat, ia, ja, nequ, nterm, lmat)
 for i=1:nequ
     Ax(i)=0;
 end

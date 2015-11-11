@@ -1,7 +1,5 @@
 % Conjugate Gradient (CG)
-function CG(pvec, vec, sysmat, ia, ja, nequ)
-x=pvec;
-b=vec;
+function CG(x, b, sysmat, ia, ja, nequ)
 for i=1:nequ
     Ax(i)=0;
 end
