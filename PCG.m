@@ -16,7 +16,7 @@ r=b-Ax;
 vec=r;
 pvec=lsolve(nequ,nterm,ia,ja,lmat,vec);
 p=pvec;
-tau=norm(r);
+tau=norm(r)/norm(b);
 tol=10e-10;
 iter=0;
 while tau>tol
@@ -39,12 +39,28 @@ while tau>tol
     vec=r;
     pvec=lsolve(nequ,nterm,ia,ja,lmat,vec);
     v=pvec;
-    b=(-v*t.')/(p*t.');
-    p=v+(b*p);
-    tau=norm(r);
+    beta=-((v*t.')/(p*t.'));
+    p=v+(beta*p);
+    tau=norm(r)/norm(b);
     iter=iter+1;
 end
+
+% calculate real residual
+for i=1:nequ
+    Ax(i)=0;
+end
+for i=1:nequ
+    k=ia(i);
+    Ax(i)=Ax(i)+sysmat(k)*x(i);
+    for k=ia(i)+1:ia(i+1)-1
+        j=ja(k);
+        Ax(i)=Ax(i)+sysmat(k)*x(j);
+        Ax(j)=Ax(j)+sysmat(k)*x(i);
+    end
+end
+taureal=norm(b-Ax)/norm(b);
 
 %display iteration and result
 disp(x)
 disp(iter)
+disp(taureal)
