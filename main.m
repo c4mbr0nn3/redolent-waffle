@@ -34,6 +34,8 @@ if choice==1
     IA=A_crs(ceil(nz/B(1))+ceil(nz/B(2))+2:end,1:B(2)).';
     IA=IA(:);
     IA=IA(1:n+1,1);
+    
+    sym=1;
 else
     % check if matrix is symmetric 
     % if true retain only upper part of matrix
@@ -71,11 +73,11 @@ if (sym==1)
     end
     for i=1:n
         k=IA(i);
-        vec(i)=vec(i)+SYSMAT(k).'*v(i);
+        vec(i)=vec(i)+SYSMAT(k)*v(i);
         for k=IA(i)+1:IA(i+1)-1
             j=JA(k);
-            vec(i)=vec(i)+SYSMAT(k).'*v(j);
-            vec(j)=vec(j)+SYSMAT(k).'*v(i);
+            vec(i)=vec(i)+SYSMAT(k)*v(j);
+            vec(j)=vec(j)+SYSMAT(k)*v(i);
         end
     end
 else
@@ -132,9 +134,9 @@ end
 % ask if use CG or PCG
 choice=menu('Quale algoritmo vuoi usare?','CG','PCG');
 if choice==1
-    CG(pvec, vec, sysmat, ia, ja, nequ)
+    CG(x, b, sysmat, ia, ja, nequ)
 else
-    PCG(pvec, vec, sysmat, ia, ja, nequ, nterm, lmat)
+    PCG(x, b, sysmat, ia, ja, nequ, nterm, lmat)
 end
 
 clear choice
