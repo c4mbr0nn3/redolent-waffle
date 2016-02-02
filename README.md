@@ -1,5 +1,3 @@
 # redolent-waffle
 
-Numerical Methods - Ferronato
-
-Exam Project
+NUMERICAL METHODS FOR DIFFERENTIAL EQUATIONS - First homework
