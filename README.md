@@ -1,3 +1,5 @@
 # redolent-waffle
 
-NUMERICAL METHODS FOR DIFFERENTIAL EQUATIONS - First homework
+## Numerical methods for differential equations
+
+First homework for the numerical methods course
